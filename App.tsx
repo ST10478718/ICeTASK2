@@ -3,7 +3,9 @@ import { StyleSheet, TextInput, View, Alert, Button, Image, Animated } from 'rea
 
 export default function App() {
 
-  const fadeAnim = useRef (new Animated.Value(1)).current;
+
+  const emailAnim = useRef (new Animated.Value(1)).current;
+  const passwordAnim = useRef (new Animated.Value(1)).current;
   const buttonAnim = useRef (new Animated.Value(1)).current;  
 
   const [email, setEmail] = useState("");
@@ -11,12 +13,12 @@ export default function App() {
   
    Animated.parallel([
     Animated.sequence([
-      Animated.timing(buttonAnim, {
+      Animated.timing(emailAnim, {
         toValue: 0.5,
         duration: 2000,
         useNativeDriver: true,
       }),
-      Animated.timing(buttonAnim, {
+      Animated.timing(emailAnim, {
         toValue: 1,
         duration: 2000,
         useNativeDriver: true,
@@ -34,12 +36,12 @@ export default function App() {
     }),
   ]).start();
   Animated.sequence([
-    Animated.timing(fadeAnim, {
+    Animated.timing(passwordAnim, {
       toValue: 1, 
       duration: 2000,
       useNativeDriver: true,
     }),
-    Animated.timing(fadeAnim, {
+    Animated.timing(passwordAnim, {
       toValue: 0,
       duration: 2000,
       useNativeDriver: true,
@@ -55,6 +57,8 @@ export default function App() {
     <View style={styles.mainPicture}>
       <Image source={require('./ICeTASK2/ICeTASK2/assets/boots-ennis-lands-wba-super-welterweight-final-eliminator-against-lima-in-philadelphia-on-oct-11-live-on-dazn.html')}  />
     </View>
+
+    <Animated.View style={{ opacity: emailAnim }}>
   <TextInput 
   style={styles.input}
   placeholder="Enter your email"
@@ -63,6 +67,9 @@ export default function App() {
   keyboardType="email-address"
   autoCapitalize="none"
 />
+</Animated.View>
+
+<Animated.View style={{ opacity: passwordAnim }}>
 <TextInput 
   style={styles.input}
   placeholder="Enter your password"
@@ -70,7 +77,9 @@ export default function App() {
   onChangeText={setPassword}
   secureTextEntry
 />
-<Animated.View style={{ opacity: fadeAnim, transform: [{ scale: buttonAnim }] }}>
+</Animated.View>
+
+<Animated.View style={{ transform: [{ scale: buttonAnim }] }}>
   <Button title="Submit"  />
 </Animated.View>
     </View>
@@ -122,4 +131,5 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
   },
+   
 });
