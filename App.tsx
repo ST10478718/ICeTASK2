@@ -1,16 +1,60 @@
-import { useState } from 'react';
-import { StyleSheet, TextInput, View, Alert, Button } from 'react-native';
+import { useState,useRef } from 'react';
+import { StyleSheet, TextInput, View, Alert, Button, Image, Animated } from 'react-native';
 
 export default function App() {
 
+  const fadeAnim = useRef (new Animated.Value(1)).current;
+  const buttonAnim = useRef (new Animated.Value(1)).current;  
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  
+   Animated.parallel([
+    Animated.sequence([
+      Animated.timing(buttonAnim, {
+        toValue: 0.5,
+        duration: 2000,
+        useNativeDriver: true,
+      }),
+      Animated.timing(buttonAnim, {
+        toValue: 1,
+        duration: 2000,
+        useNativeDriver: true,
+      }),
+    ]),
+    Animated.timing(buttonAnim, {
+      toValue: 1.5,
+      duration: 2000,
+      useNativeDriver: true,
+    }),
+    Animated.timing(buttonAnim, {
+      toValue: 1,
+      duration: 2000,
+      useNativeDriver: true,
+    }),
+  ]).start();
+  Animated.sequence([
+    Animated.timing(fadeAnim, {
+      toValue: 1, 
+      duration: 2000,
+      useNativeDriver: true,
+    }),
+    Animated.timing(fadeAnim, {
+      toValue: 0,
+      duration: 2000,
+      useNativeDriver: true,
+    }),
+  ]).start();
   const handlePress = () => {
     Alert.alert("Email Entered", email);
   };
+
+
   return (
     <View style={styles.container}>
+    <View style={styles.mainPicture}>
+      <Image source={require('./ICeTASK2/ICeTASK2/assets/boots-ennis-lands-wba-super-welterweight-final-eliminator-against-lima-in-philadelphia-on-oct-11-live-on-dazn.html')}  />
+    </View>
   <TextInput 
   style={styles.input}
   placeholder="Enter your email"
@@ -26,10 +70,12 @@ export default function App() {
   onChangeText={setPassword}
   secureTextEntry
 />
-  <Button title="Submit" onPress={handlePress} />
+<Animated.View style={{ opacity: fadeAnim, transform: [{ scale: buttonAnim }] }}>
+  <Button title="Submit"  />
+</Animated.View>
     </View>
-  );
-}
+) };
+
 
 const styles = StyleSheet.create({
   container: {
@@ -67,5 +113,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginTop: 20,
     color: 'purple',
+  },
+
+  mainPicture: {
+    marginBottom: 30,
+  },
+  ImageSize: {
+    width: 200,
+    height: 200,
   },
 });
