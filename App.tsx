@@ -47,4 +47,25 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: 10,
   },
+  button: {
+    backgroundColor: '#007BFF',
+    padding: 10,
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+  },
+
+  emailText: {
+    fontSize: 18,
+    marginTop: 20,
+    color: 'purple',
+  },
+
+  passwordText: {
+    fontSize: 18,
+    marginTop: 20,
+    color: 'purple',
+  },
 });
